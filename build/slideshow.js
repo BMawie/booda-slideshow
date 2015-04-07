@@ -61,16 +61,22 @@ var SlideBox = React.createClass({displayName: "SlideBox",
 });
 
 var listener = function (e) {
-  console.log(e.type);
+  // console.log(e.type);
   switch(e.type) {
     case "animationstart":
     case "webkitAnimationStart":
+    case "oanimationstart":
+    case "MSAnimationStart":
     	initE();
       break;
     case "animationend":
-    case "webkitAnimationEnd":
     case "animationiteration":
+    case "webkitAnimationEnd":
     case "webkitAnimationIteration":
+    case "oanimationend":
+    case "oanimationiteration":
+    case "MSAnimationEnd":
+    case "MSAnimationIteration":
     	currentSlide += 1;
     	render();
       break;
@@ -81,10 +87,18 @@ var initE = function() {
 	e = document.getElementById('slide--active');
 	e.addEventListener("animationstart", listener, false);
 	e.addEventListener("webkitAnimationStart", listener, false);
+	e.addEventListener("oanimationstart", listener, false);
+	e.addEventListener("MSAnimationStart", listener, false);
+
 	e.addEventListener("webkitAnimationEnd", listener, false);
 	e.addEventListener("animationend", listener, false);
+	e.addEventListener("oanimationend", listener, false);
+	e.addEventListener("MSAnimationEnd", listener, false);
+
 	e.addEventListener("webkitAnimationIteration", listener, false);
 	e.addEventListener("animationiteration", listener, false);
+	e.addEventListener("oanimationiteration", listener, false);
+	e.addEventListener("MSAnimationIteration", listener, false);
 }
 
 var render = function() {
